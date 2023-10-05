@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Club Checking Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript">
+        window.onload = function() {
+            var isAndroid = /android/i.test(navigator.userAgent);
+            var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            if (isAndroid) {
+                // Redirect to the Play Store
+                window.location.href = 'https://play.google.com/store/apps/details?id=com.econocheck.banking';
+            } else if (isiOS) {
+                // Redirect to the App Store
+                window.location.href = 'https://apps.apple.com/us/app/club-checking/id1447667893';
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>AppLink Test</h1>
+    <p>This is an example of a website that redirects users to the Club Checking app's page on the App Store or Play Store, depending on their device.</p>
+</body>
+</html>
