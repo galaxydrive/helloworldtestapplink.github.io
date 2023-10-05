@@ -1,0 +1,146 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.idprotect.banking",
+      "sha256_cert_fingerprints": [
+        "61:96:CE:BF:99:9E:65:F0:AC:71:BD:A5:CF:8B:FE:C2:38:CE:78:59:37:02:1F:37:33:F8:12:17:5C:DA:EA:08"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.econocheck.hwidprotect",
+      "sha256_cert_fingerprints": [
+        "61:96:CE:BF:99:9E:65:F0:AC:71:BD:A5:CF:8B:FE:C2:38:CE:78:59:37:02:1F:37:33:F8:12:17:5C:DA:EA:08"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.landmark.banking",
+      "sha256_cert_fingerprints": [
+        "61:96:CE:BF:99:9E:65:F0:AC:71:BD:A5:CF:8B:FE:C2:38:CE:78:59:37:02:1F:37:33:F8:12:17:5C:DA:EA:08"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.econocheck.mygenfcu",
+      "sha256_cert_fingerprints": [
+        "61:96:CE:BF:99:9E:65:F0:AC:71:BD:A5:CF:8B:FE:C2:38:CE:78:59:37:02:1F:37:33:F8:12:17:5C:DA:EA:08"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.econocheck.myclubpackage",
+      "sha256_cert_fingerprints": [
+        "61:96:CE:BF:99:9E:65:F0:AC:71:BD:A5:CF:8B:FE:C2:38:CE:78:59:37:02:1F:37:33:F8:12:17:5C:DA:EA:08"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.econocheck.southernbank",
+      "sha256_cert_fingerprints": [
+        "61:96:CE:BF:99:9E:65:F0:AC:71:BD:A5:CF:8B:FE:C2:38:CE:78:59:37:02:1F:37:33:F8:12:17:5C:DA:EA:08"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.econocheck.banking",
+      "sha256_cert_fingerprints": [
+        "61:96:CE:BF:99:9E:65:F0:AC:71:BD:A5:CF:8B:FE:C2:38:CE:78:59:37:02:1F:37:33:F8:12:17:5C:DA:EA:08"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.econocheck.idprotect360",
+      "sha256_cert_fingerprints": [
+        "61:96:CE:BF:99:9E:65:F0:AC:71:BD:A5:CF:8B:FE:C2:38:CE:78:59:37:02:1F:37:33:F8:12:17:5C:DA:EA:08"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.econocheck.centralbank",
+      "sha256_cert_fingerprints": [
+        "61:96:CE:BF:99:9E:65:F0:AC:71:BD:A5:CF:8B:FE:C2:38:CE:78:59:37:02:1F:37:33:F8:12:17:5C:DA:EA:08"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ctbi.advantage",
+      "sha256_cert_fingerprints": [
+        "61:96:CE:BF:99:9E:65:F0:AC:71:BD:A5:CF:8B:FE:C2:38:CE:78:59:37:02:1F:37:33:F8:12:17:5C:DA:EA:08"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.econocheck.jeffersonbank",
+      "sha256_cert_fingerprints": [
+        "61:96:CE:BF:99:9E:65:F0:AC:71:BD:A5:CF:8B:FE:C2:38:CE:78:59:37:02:1F:37:33:F8:12:17:5C:DA:EA:08"
+      ]
+    }
+  },
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.nxgprotect",
+      "sha256_cert_fingerprints": [
+        "61:96:CE:BF:99:9E:65:F0:AC:71:BD:A5:CF:8B:FE:C2:38:CE:78:59:37:02:1F:37:33:F8:12:17:5C:DA:EA:08"
+      ]
+    }
+  }
+]
