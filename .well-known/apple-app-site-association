@@ -1,0 +1,140 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "FGNAM5PJD7.com.metova.Econocheck",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.myclubpackage.econocheck",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.econocheck.hwidprotect",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.rbfcu.membersafe",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.econocheck.hwidprotectstaging",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.econocheck.mygenfcu",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.econocheck.myclubpackage",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.clubchecking.premium",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.econocheck.idprotect360",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.econocheck.jeffersonbank",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.clubchecking.landmarkstaging",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.econocheck.secureplus",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.econocheck.clubcheckingdev",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.clubchecking.econocheck",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.econocheck.idprotect360staging",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.keeps.bankwithsouthern",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.clubchecking.landmark",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.econocheck.centralbank",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      },
+      {
+        "appID": "35HW47RX95.com.nxgprotect",
+        "paths": [
+          "NOT /_/*",
+          "/*"
+        ]
+      }
+    ]
+  }
+}
