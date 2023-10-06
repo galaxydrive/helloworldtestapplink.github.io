@@ -8,13 +8,13 @@
             var isAndroid = /android/i.test(navigator.userAgent);
             var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-            // Copy url to clipboard
-            navigator.clipboard.writeText(window.location.href);
-
+            
             if (isAndroid) {
                 // Redirect to the Play Store
                 window.location.href = 'https://play.google.com/store/apps/details?id=com.econocheck.banking';
             } else if (isiOS) {
+                // Copy url to clipboard
+                navigator.clipboard.writeText(window.location.href);
                 // Redirect to the App Store
                 window.location.href = 'https://apps.apple.com/us/app/club-checking/id1447667893';
             } else {
