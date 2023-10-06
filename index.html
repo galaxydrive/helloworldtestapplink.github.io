@@ -12,6 +12,9 @@
                 window.location.href = 'https://play.google.com/store/apps/details?id=com.econocheck.banking';
             } else if (isiOS) {
                 // Redirect to the App Store
+                console.log(window.location.href);
+                navigator.clipboard.writeText(window.location.href);
+
                 window.location.href = 'https://apps.apple.com/us/app/club-checking/id1447667893';
             } else {
                 // Redirect to Bank's Website on Desktop
