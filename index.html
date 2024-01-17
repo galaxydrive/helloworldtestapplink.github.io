@@ -11,7 +11,12 @@
             
             if (isAndroid) {
                 // Redirect to the Play Store
-                window.location.href = 'https://play.google.com/store/apps/details?id=com.econocheck.banking';
+
+                var Url = document.getElementById("url");
+                Url.innerHTML = window.location.href;
+                console.log(Url.innerHTML)
+                
+                // window.location.href = 'https://play.google.com/store/apps/details?id=com.econocheck.banking';
                 navigator.clipboard.writeText(window.location.href);
                 console.log("Copied to clipboard: ", window.location.href);
             } else if (isiOS) {
