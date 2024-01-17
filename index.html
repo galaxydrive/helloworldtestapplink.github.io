@@ -11,14 +11,12 @@
             
             if (isAndroid) {
                 // Redirect to the Play Store
-
-                var Url = document.getElementById("url");
-                Url.innerHTML = window.location.href;
-                console.log(Url.innerHTML)
                 
-                // window.location.href = 'https://play.google.com/store/apps/details?id=com.econocheck.banking';
+                
                 navigator.clipboard.writeText(window.location.href);
                 console.log("Copied to clipboard: ", window.location.href);
+
+                window.location.href = 'https://play.google.com/store/apps/details?id=com.econocheck.banking';
             } else if (isiOS) {
                 // Copy url to clipboard
                 navigator.clipboard.writeText(window.location.href);
@@ -26,12 +24,8 @@
                 // Redirect to the App Store
                 window.location.href = 'https://apps.apple.com/us/app/club-checking/id1447667893';
             } else {
-
-                const currentUrl = window.location.href;
-                console.log(currentUrl);
-
                 // Redirect to Bank's Website on Desktop
-                // window.location.href = 'http://ignite.clubchecking.com/'
+                window.location.href = 'http://ignite.clubchecking.com/'
             }
         }
     </script>
