@@ -16,6 +16,7 @@
             
             // If no deep link is provided, use default behavior
             if (!linkParam) {
+                console.log("no deepLink provided...falling back)
                 handleDefaultRedirect(isAndroid, isiOS, oflParam);
                 return;
             }
@@ -90,6 +91,10 @@
             if (accessCodeElement && accessCode) {
                 accessCodeElement.textContent = 'Access Code: ' + accessCode;
             }
+
+            console.log(" handleAppRedirect curr accessCode: ", accessCode)
+
+            console.log(" handleAppRedirect curr fallbackUrl: ", fallbackUrl)
             
             if (isAndroid) {
                 // Redirect to the Play Store for specific app
@@ -112,6 +117,7 @@
         }
         
         function handleDefaultRedirect(isAndroid, isiOS, fallbackUrl) {
+            console.log(" handleAppRedirect curr fallbackUrl: ", fallbackUrl)
             // Default behavior when no specific app is identified
             if (isAndroid) {
                 window.location.href = 'https://play.google.com/store/apps/details?id=com.econocheck.banking';
