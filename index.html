@@ -8,6 +8,8 @@
             var isAndroid = /android/i.test(navigator.userAgent);
             var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
+
+            console.log("Referrer URL:", document.referrer);
             
             if (isAndroid) {
                 // Redirect to the Play Store
