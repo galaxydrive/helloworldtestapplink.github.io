@@ -1,34 +1,156 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Club Checking Test</title>
+    <title>Deep Link Handler</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript">
         window.onload = function() {
+            // Detect device type
             var isAndroid = /android/i.test(navigator.userAgent);
             var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            
+            // Parse URL parameters
+            var urlParams = new URLSearchParams(window.location.search);
+            var linkParam = urlParams.get('link');
+            var oflParam = urlParams.get('ofl') || 'https://default-fallback-url.com/';
+            
+            // If no deep link is provided, use default behavior
+            if (!linkParam) {
+                handleDefaultRedirect(isAndroid, isiOS, oflParam);
+                return;
+            }
+            
+            try {
+                // Parse the embedded link URL and its parameters
+                var linkUrl = new URL(decodeURIComponent(linkParam));
+                var linkParams = new URLSearchParams(linkUrl.search);
+                
+                // Extract app identifier from path - assuming format like /appname/action
+                var pathParts = linkUrl.pathname.split('/').filter(Boolean);
+                var appId = pathParts[0] || 'default';
 
+                console.log("current app ID: ", appId)
+                
+                // Get the access code if present
+                var accessCode = linkParams.get('accessCode');
+                
+                // Define app configurations
+                var appConfigs = {
+                    'registration': {
+                        android: 'com.econocheck.banking',
+                        ios: 'id1447667893',
+                        name: 'Club Checking',
+                        fallback: 'http://ignite.clubchecking.com/'
+                    },
+                    'otherapp': {
+                        android: 'com.example.otherapp',
+                        ios: 'id9876543210',
+                        name: 'Other Application',
+                        fallback: 'https://example.com/otherapp/'
+                    },
+                    'thirdapp': {
+                        android: 'com.example.thirdapp',
+                        ios: 'id1122334455',
+                        name: 'Third Application',
+                        fallback: 'https://example.com/thirdapp/'
+                    },
+                    // Add more app configurations as needed
+                    'default': {
+                        android: 'com.econocheck.banking',
+                        ios: 'id1447667893',
+                        name: 'Default App',
+                        fallback: oflParam
+                    }
+                };
 
-            console.log("Referrer URL:", document.referrer);
+                console.log("curr appConfig: ", appConfig)
+                
+                // Select the appropriate app configuration
+                var appConfig = appConfigs[appId] || appConfigs['default'];
+                
+                // Handle the redirection based on device and app
+                handleAppRedirect(isAndroid, isiOS, appConfig, accessCode, oflParam);
+                
+            } catch (error) {
+                console.error('Error parsing deep link:', error);
+                // Fallback to default behavior on error
+                handleDefaultRedirect(isAndroid, isiOS, oflParam);
+            }
+        };
+        
+        function handleAppRedirect(isAndroid, isiOS, appConfig, accessCode, fallbackUrl) {
+            // Create a message for display
+            var message = document.getElementById('message');
+            if (message) {
+                message.textContent = 'Redirecting to ' + appConfig.name + '...';
+            }
+            
+            // For debugging - display the access code if available
+            var accessCodeElement = document.getElementById('accessCode');
+            if (accessCodeElement && accessCode) {
+                accessCodeElement.textContent = 'Access Code: ' + accessCode;
+            }
             
             if (isAndroid) {
-                // Redirect to the Play Store
+                // Redirect to the Play Store for specific app
+                window.location.href = 'https://play.google.com/store/apps/details?id=' + appConfig.android;
+            } else if (isiOS) {
+                // Try to copy link to clipboard for iOS
+                try {
+                    navigator.clipboard.writeText(window.location.href);
+                    console.log("Copied to clipboard: ", window.location.href);
+                } catch (err) {
+                    console.error("Could not copy URL to clipboard: ", err);
+                }
+                
+                // Redirect to the App Store for specific app
+                window.location.href = 'https://apps.apple.com/us/app/' + appConfig.name.toLowerCase().replace(/ /g, '-') + '/' + appConfig.ios;
+            } else {
+                // Redirect to app's fallback website on Desktop
+                window.location.href = appConfig.fallback || fallbackUrl;
+            }
+        }
+        
+        function handleDefaultRedirect(isAndroid, isiOS, fallbackUrl) {
+            // Default behavior when no specific app is identified
+            if (isAndroid) {
                 window.location.href = 'https://play.google.com/store/apps/details?id=com.econocheck.banking';
             } else if (isiOS) {
-                // Copy url to clipboard
-                navigator.clipboard.writeText(window.location.href);
-                console.log("Copied to clipboard: ", window.location.href);
-                // Redirect to the App Store
+                try {
+                    navigator.clipboard.writeText(window.location.href);
+                } catch (err) {
+                    console.error("Could not copy URL to clipboard: ", err);
+                }
                 window.location.href = 'https://apps.apple.com/us/app/club-checking/id1447667893';
             } else {
-                // Redirect to Bank's Website on Desktop
-                window.location.href = 'http://ignite.clubchecking.com/'
+                window.location.href = fallbackUrl || 'http://ignite.clubchecking.com/';
             }
         }
     </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        #container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        #message, #accessCode {
+            margin: 10px 0;
+        }
+    </style>
 </head>
 <body>
-    <h1>ECC Deep Link Test</h1>
-    <p>This is an example of a website that redirects users to the Club Checking app's page on the App Store, Play Store, or Bank's Website depending on their device.</p>
+    <div id="container">
+        <h1>App Deep Link Handler</h1>
+        <p>Redirecting you to the appropriate destination...</p>
+        <p id="message"></p>
+        <p id="accessCode"></p>
+    </div>
 </body>
 </html>
