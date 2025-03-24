@@ -5,19 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript">
         window.onload = function() {
-            // Detect device type
             var isAndroid = /android/i.test(navigator.userAgent);
             var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
             
-            // Parse URL parameters
             var urlParams = new URLSearchParams(window.location.search);
             var linkParam = urlParams.get('link');
             var oflParam = urlParams.get('ofl') || 'https://default-fallback-url.com/';
             
-            // If no deep link is provided, use default behavior
+            var androidBundleId = urlParams.get('androidId');
+            var iosBundleId = urlParams.get('iosId');
+            var appName = urlParams.get('appName');
+            
             if (!linkParam) {
-                console.log("no deepLink provided...falling back")
-                handleDefaultRedirect(isAndroid, isiOS, oflParam);
+                console.log("No deepLink provided...falling back");
+                handleDefaultRedirect(isAndroid, isiOS, oflParam, androidBundleId, iosBundleId, appName);
                 return;
             }
             
@@ -30,32 +31,29 @@
                 var pathParts = linkUrl.pathname.split('/').filter(Boolean);
                 var appId = pathParts[0] || 'default';
 
-                console.log("current app ID: ", appId)
+                console.log("Current app ID: ", appId);
                 
-                // Get the access code if present
                 var accessCode = linkParams.get('accessCode');
                 
-                // Define app configurations
                 var appConfigs = {
                     'registration': {
-                        android: 'com.econocheck.banking',
-                        ios: 'id1447667893',
-                        name: 'Club Checking',
+                        android: androidBundleId,
+                        ios: iosBundleId,
+                        name: appName,
                         fallback: 'http://ignite.clubchecking.com/'
                     },
                     'otherapp': {
-                        android: 'com.example.otherapp',
-                        ios: 'id9876543210',
-                        name: 'Other Application',
+                        android: androidBundleId,
+                        ios: iosBundleId,
+                        name: appName,
                         fallback: 'https://example.com/otherapp/'
                     },
                     'thirdapp': {
-                        android: 'com.example.thirdapp',
-                        ios: 'id1122334455',
-                        name: 'Third Application',
+                        android: androidBundleId,
+                        ios: iosBundleId,
+                        name: appName,
                         fallback: 'https://example.com/thirdapp/'
                     },
-                    // Add more app configurations as needed
                     'default': {
                         android: 'com.econocheck.banking',
                         ios: 'id1447667893',
@@ -63,19 +61,22 @@
                         fallback: oflParam
                     }
                 };
-
-                console.log("curr appConfig: ", appConfig)
                 
                 // Select the appropriate app configuration
                 var appConfig = appConfigs[appId] || appConfigs['default'];
                 
-                // Handle the redirection based on device and app
+                // Override with URL params if provided
+                if (androidBundleId) appConfig.android = androidBundleId;
+                if (iosBundleId) appConfig.ios = iosBundleId;
+                if (appName) appConfig.name = appName;
+
+                console.log("Current appConfig: ", appConfig);
+                
                 handleAppRedirect(isAndroid, isiOS, appConfig, accessCode, oflParam);
                 
             } catch (error) {
                 console.error('Error parsing deep link:', error);
-                // Fallback to default behavior on error
-                handleDefaultRedirect(isAndroid, isiOS, oflParam);
+                handleDefaultRedirect(isAndroid, isiOS, oflParam, androidBundleId, iosBundleId, appName);
             }
         };
         
@@ -92,13 +93,11 @@
                 accessCodeElement.textContent = 'Access Code: ' + accessCode;
             }
 
-            console.log(" handleAppRedirect curr accessCode: ", accessCode)
-
-            console.log(" handleAppRedirect curr fallbackUrl: ", fallbackUrl)
-
-            console.log(" handleAppRedirect curr appConfig: ", appConfig)
-
-            console.log(" handleAppRedirect curr appConfig.android: ", appConfig.android)
+            // Debug info
+            console.log("handleAppRedirect current accessCode: ", accessCode);
+            console.log("handleAppRedirect current fallbackUrl: ", fallbackUrl);
+            console.log("handleAppRedirect current appConfig: ", appConfig);
+            console.log("handleAppRedirect current appConfig.android: ", appConfig.android);
             
             if (isAndroid) {
                 // Redirect to the Play Store for specific app
@@ -113,25 +112,36 @@
                 }
                 
                 // Redirect to the App Store for specific app
-                window.location.href = 'https://apps.apple.com/us/app/' + appConfig.name.toLowerCase().replace(/ /g, '-') + '/' + appConfig.ios;
+                // Remove the "id" prefix if it exists in the appConfig.ios
+                var iosAppId = appConfig.ios.startsWith('id') ? appConfig.ios : 'id' + appConfig.ios;
+                window.location.href = 'https://apps.apple.com/us/app/' + appConfig.name.toLowerCase().replace(/ /g, '-') + '/' + iosAppId;
             } else {
                 // Redirect to app's fallback website on Desktop
                 window.location.href = appConfig.fallback || fallbackUrl;
             }
         }
         
-        function handleDefaultRedirect(isAndroid, isiOS, fallbackUrl) {
-            console.log(" handleAppRedirect curr fallbackUrl: ", fallbackUrl)
+        function handleDefaultRedirect(isAndroid, isiOS, fallbackUrl, androidBundleId, iosBundleId, appName) {
+            console.log("handleDefaultRedirect current fallbackUrl: ", fallbackUrl);
+            
+            // Use provided bundle IDs if available
+            var androidId = androidBundleId || 'com.econocheck.banking';
+            var iosId = iosBundleId || 'id1447667893';
+            var appNameFormatted = (appName || 'club-checking').toLowerCase().replace(/ /g, '-');
+            
             // Default behavior when no specific app is identified
             if (isAndroid) {
-                window.location.href = 'https://play.google.com/store/apps/details?id=com.econocheck.banking';
+                window.location.href = 'https://play.google.com/store/apps/details?id=' + androidId;
             } else if (isiOS) {
                 try {
                     navigator.clipboard.writeText(window.location.href);
                 } catch (err) {
                     console.error("Could not copy URL to clipboard: ", err);
                 }
-                window.location.href = 'https://apps.apple.com/us/app/club-checking/id1447667893';
+                
+                // Make sure the iOS ID has the 'id' prefix
+                var formattedIosId = iosId.startsWith('id') ? iosId : 'id' + iosId;
+                window.location.href = 'https://apps.apple.com/us/app/' + appNameFormatted + '/' + formattedIosId;
             } else {
                 window.location.href = fallbackUrl || 'http://ignite.clubchecking.com/';
             }
