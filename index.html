@@ -4,7 +4,12 @@
     <title>Deep Link Handler</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="text/javascript">
-        window.onload = function() {
+
+        var isiOSReady = false;
+
+        window.onload = onloadFunc;
+        
+        function onloadFunc() {
             var isAndroid = /android/i.test(navigator.userAgent);
             var isiOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
             
@@ -16,6 +21,11 @@
             var iosBundleId = urlParams.get('iosId');
             var appName = urlParams.get('appName');
             
+            if (!isiOSReady) {
+                console.log("iOS Needs user intent... falling back");
+                return;
+            }
+
             if (!linkParam) {
                 console.log("No deepLink provided...falling back");
                 handleDefaultRedirect(isAndroid, isiOS, oflParam, androidBundleId, iosBundleId, appName);
@@ -79,7 +89,7 @@
                 handleDefaultRedirect(isAndroid, isiOS, oflParam, androidBundleId, iosBundleId, appName);
             }
         };
-        
+
         function handleAppRedirect(isAndroid, isiOS, appConfig, accessCode, fallbackUrl) {
             // Create a message for display
             var message = document.getElementById('message');
@@ -113,8 +123,8 @@
                 
                 // Redirect to the App Store for specific app
                 // Remove the "id" prefix if it exists in the appConfig.ios
-                // var iosAppId = appConfig.ios.startsWith('id') ? appConfig.ios : 'id' + appConfig.ios;
-                // window.location.href = 'https://apps.apple.com/us/app/' + appConfig.name.toLowerCase().replace(/ /g, '-') + '/' + iosAppId;
+                var iosAppId = appConfig.ios.startsWith('id') ? appConfig.ios : 'id' + appConfig.ios;
+                window.location.href = 'https://apps.apple.com/us/app/' + appConfig.name.toLowerCase().replace(/ /g, '-') + '/' + iosAppId;
             } else {
                 // Redirect to app's fallback website on Desktop
                 window.location.href = appConfig.fallback || fallbackUrl;
@@ -133,11 +143,11 @@
             if (isAndroid) {
                 window.location.href = 'https://play.google.com/store/apps/details?id=' + androidId;
             } else if (isiOS) {
-                try {
-                    navigator.clipboard.writeText(window.location.href);
-                } catch (err) {
-                    console.error("Could not copy URL to clipboard: ", err);
-                }
+                // try {
+                //     navigator.clipboard.writeText(window.location.href);
+                // } catch (err) {
+                //     console.error("Could not copy URL to clipboard: ", err);
+                // }
                 
                 // Make sure the iOS ID has the 'id' prefix
                 var formattedIosId = iosId.startsWith('id') ? iosId : 'id' + iosId;
@@ -149,16 +159,19 @@
 
         function handleiOSRedirect() {
             console.log("Handling iOS redirect!");
+
+            var urlParams = new URLSearchParams(window.location.search);
+
             try {
                 console.log("Writing text into clipboard: ", window.location.href);
                 navigator.clipboard.writeText(window.location.href);
             } catch (err) {
                 console.error("Could not copy URL to clipboard: ", err);
             }
-                
-            // Make sure the iOS ID has the 'id' prefix
-            var formattedIosId = iosId.startsWith('id') ? iosId : 'id' + iosId;
-            window.location.href = 'https://apps.apple.com/us/app/' + appNameFormatted + '/' + formattedIosId;
+
+            isiOSReady = true;
+
+            onloadFunc();
         }
     </script>
     <style>
@@ -174,6 +187,21 @@
             border: 1px solid #ddd;
             border-radius: 8px;
         }
+
+        .button {
+            background-color: #04AA6D; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
         #message, #accessCode {
             margin: 10px 0;
         }
@@ -186,7 +214,7 @@
         <p id="message"></p>
         <p id="accessCode"></p>
         <p>A link will be copied to your clipboard.</p>
-        <button onclick="handleiOSRedirect()">OPEN</button>
+        <button class="button" onclick="handleiOSRedirect()">OPEN</button>
     </div>
 </body>
 </html>
