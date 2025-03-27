@@ -104,17 +104,17 @@
                 window.location.href = 'https://play.google.com/store/apps/details?id=' + appConfig.android;
             } else if (isiOS) {
                 // Try to copy link to clipboard for iOS
-                try {
-                    navigator.clipboard.writeText(window.location.href);
-                    console.log("Copied to clipboard: ", window.location.href);
-                } catch (err) {
-                    console.error("Could not copy URL to clipboard: ", err);
-                }
+                // try {
+                //     navigator.clipboard.writeText(window.location.href);
+                //     console.log("Copied to clipboard: ", window.location.href);
+                // } catch (err) {
+                //     console.error("Could not copy URL to clipboard: ", err);
+                // }
                 
                 // Redirect to the App Store for specific app
                 // Remove the "id" prefix if it exists in the appConfig.ios
-                var iosAppId = appConfig.ios.startsWith('id') ? appConfig.ios : 'id' + appConfig.ios;
-                window.location.href = 'https://apps.apple.com/us/app/' + appConfig.name.toLowerCase().replace(/ /g, '-') + '/' + iosAppId;
+                // var iosAppId = appConfig.ios.startsWith('id') ? appConfig.ios : 'id' + appConfig.ios;
+                // window.location.href = 'https://apps.apple.com/us/app/' + appConfig.name.toLowerCase().replace(/ /g, '-') + '/' + iosAppId;
             } else {
                 // Redirect to app's fallback website on Desktop
                 window.location.href = appConfig.fallback || fallbackUrl;
@@ -146,6 +146,20 @@
                 window.location.href = fallbackUrl || 'http://ignite.clubchecking.com/';
             }
         }
+
+        function handleiOSRedirect() {
+            console.log("Handling iOS redirect!");
+            try {
+                console.log("Writing text into clipboard: ", window.location.href);
+                navigator.clipboard.writeText(window.location.href);
+            } catch (err) {
+                console.error("Could not copy URL to clipboard: ", err);
+            }
+                
+            // Make sure the iOS ID has the 'id' prefix
+            var formattedIosId = iosId.startsWith('id') ? iosId : 'id' + iosId;
+            window.location.href = 'https://apps.apple.com/us/app/' + appNameFormatted + '/' + formattedIosId;
+        }
     </script>
     <style>
         body {
@@ -171,6 +185,8 @@
         <p>Redirecting you to the appropriate destination...</p>
         <p id="message"></p>
         <p id="accessCode"></p>
+        <p>A link will be copied to your clipboard.</p>
+        <button onclick="handleiOSRedirect()">OPEN</button>
     </div>
 </body>
 </html>
